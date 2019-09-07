@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # In[3]:
-
+# Rachid EL MAAZOUZ - PCA Juin 2018
 
 import fileloader as fl
 from mpl_toolkits.mplot3d import Axes3D
@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+%matplotlib notebook
 
 
 n=300 # nombre de données par pays
@@ -22,23 +23,23 @@ J=np.matrix((1/n)* np.ones((n,n))) # la matrice de taille n dont tous les coeff 
 
 I=np.matrix(np.eye(n)) # la matrice identité de taille n
 
-D=np.zeros((d,d)) # matrice nulle de taille d
+N=np.zeros((d,d)) # matrice nulle de taille d
 
 E=np.matrix(np.eye(d)) # matrice identité de taill d
 
-X=(I-J)*A  # la matrice de données centralisées. On a enlevé la moyenne de chaque variable.
+M=(I-J)*A  # la matrice de données centralisées. On a enlevé la moyenne de chaque variable.
            # la matrice contenant les moyenne est J*M c'est l'interet du 1/n dans les coeff de J.
 
 
 # Calcul des variances pour réduire les données à une variance 1.
 
 for i in range(d):
-    D[i][i]=  1/np.sqrt(np.sum(np.array(X[:,i])**2))
+    N[i][i]=  1/np.sqrt(np.sum(np.array(M[:,i])**2))
 
 # D est une matrice diagonale dont chaque coeff Dii contient l'inverse de l'écrat type de la variable i (variable i = colone i de la mtrice M)
 
 
-X=X*np.matrix(D) # là on a réduit les variables à une variance 1 par multiplication par D.
+X=M*np.matrix(N) # là on a réduit les variables à une variance 1 par multiplication par D.
 
 
 V=[]
@@ -104,5 +105,3 @@ ax1.set_zlabel('Z axis')
 
 ax1.scatter(U1, U2, U3, color='blue')
 ax1.scatter(E1, E2, E3, color='red')
-
-
